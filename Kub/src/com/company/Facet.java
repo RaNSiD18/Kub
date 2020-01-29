@@ -8,10 +8,8 @@ import java.awt.geom.Path2D;
 
 public class Facet {
     private R3Vector[] vertex;
-    public static int i;
     private Color color;
     private Random r = new Random();
-
     public Facet(R3Vector v1, R3Vector v2, R3Vector v3, R3Vector v4){
         vertex = new R3Vector[4];
         vertex[0] = v1;
@@ -20,79 +18,68 @@ public class Facet {
         vertex[3] = v4;
         this.color = color;
     }
-
-    public void print(){
-        for(i=0; i<4; i++){
-            if (i == 3){
-                vertex[3].out();
-                System.out.println(" - ");
+    public void out(){
+        for(int i = 0; i<vertex.length; i++) {
+            vertex[i].out();
+            System.out.print(" - ");
+            if(i==3){
                 vertex[0].out();
-                System.out.println("");
-                return;
+            }else{
+                vertex[i + 1].out();
             }
-        vertex[i].out();
-        System.out.println(" - ");
-        vertex[i+1].out();
-        System.out.println("");
+            System.out.print("\n");
         }
     }
-
     public void rotate(double ux, double uy, double uz){
-        for (int i = 0; i<vertex.length; i++)
-            vertex[i].rotate(ux, uy, uz);
+        for(int i=0; i<vertex.length; i++){
+            vertex[i].rotate(ux,uy,uz);
+        }
     }
-
     public void scale(double k){
         for(int i=0; i<vertex.length; i++){
             vertex[i].scale(k);
         }
     }
-
     public void translate(double dx, double dy, double dz){
         for(int i=0; i<vertex.length; i++){
             vertex[i].translate(dx,dy,dz);
         }
     }
-
     public void draw(Graphics2D g){
         Path2D path = new Path2D.Double();
-        path.moveTo(vertex[0].GetX(), vertex[0].GetY());
-        path.lineTo(vertex[1].GetX(), vertex[1].GetY());
-        path.lineTo(vertex[2].GetX(), vertex[2].GetY());
-        path.lineTo(vertex[3].GetX(), vertex[3].GetY());
-        path.lineTo(vertex[0].GetX(), vertex[0].GetY());
+        path.moveTo(vertex[0].getX(), vertex[0].getY());
+        path.lineTo(vertex[1].getX(), vertex[1].getY());
+        path.lineTo(vertex[2].getX(), vertex[2].getY());
+        path.lineTo(vertex[3].getX(), vertex[3].getY());
+        path.lineTo(vertex[0].getX(), vertex[0].getY());
         path.closePath();
-        if(light()){
+        if(light()) {
             g.setColor(this.color);
             g.fill(path);
         }
     }
-
-    public void drawPers(Graphics2D g, double p){
+    public void drawPersp(Graphics2D g, double focus){
         Path2D path = new Path2D.Double();
-        double t[] = new double[4];
-        R3Vector[] vertex1 = new R3Vector[4];
-        for (int i = 0; i < 4; i++)
-        {
-            t[i] = -p/(vertex[i].GetZ()-p);
-            vertex1[i] = new R3Vector(vertex[i].GetX()*t[i], vertex[i].GetY()*t[i], vertex[i].GetZ());
+        double[] t = new double[4];
+        R3Vector vertex_persp[] = new R3Vector[4];
+        for(int i=0; i<4; i++){
+            t[i] = -focus/(vertex[i].getZ()-focus);
+            vertex_persp[i] = new R3Vector(vertex[i].getX()*t[i], vertex[i].getY()*t[i], vertex[i].getZ());
         }
-        path.moveTo(vertex1[0].GetX(), vertex1[0].GetY());
-        path.lineTo(vertex1[1].GetX(), vertex1[1].GetY());
-        path.lineTo(vertex1[2].GetX(), vertex1[2].GetY());
-        path.lineTo(vertex1[3].GetX(), vertex1[3].GetY());
-        path.lineTo(vertex1[0].GetX(), vertex1[0].GetY());
+        path.moveTo(vertex_persp[0].getX(), vertex_persp[0].getY());
+        path.lineTo(vertex_persp[1].getX(), vertex_persp[1].getY());
+        path.lineTo(vertex_persp[2].getX(), vertex_persp[2].getY());
+        path.lineTo(vertex_persp[3].getX(), vertex_persp[3].getY());
+        path.lineTo(vertex_persp[0].getX(), vertex_persp[0].getY());
         path.closePath();
-        Facet facet = new Facet(vertex1[0], vertex1[1], vertex1[2], vertex1[3]);
-        if(light()){
-            g.setColor(this.color);
+        Facet facet = new Facet(vertex_persp[0],vertex_persp[1],vertex_persp[2],vertex_persp[3]);
+        if(facet.light()){
+            g.setColor(color);
             g.fill(path);
         }
     }
-
-
     public boolean light(){
-        if(R3Vector.normal(R3Vector.diagonals(vertex[0], vertex[1]),R3Vector.diagonals(vertex[0], vertex[3])).GetZ()<=0){
+        if(R3Vector.normal(R3Vector.diagonals(vertex[0], vertex[1]),R3Vector.diagonals(vertex[0], vertex[3])).getZ()<=0){
             return true;
         }else
             return false;

@@ -16,14 +16,14 @@ public class Controller {
         vsliderVertical.addChangeListener(new ChangeListener(){
             public void stateChanged(ChangeEvent e){
                 int step = vsliderVertical.getValue();
-                c.rotate(step, 0, 0);
+                c.rotate(step/10, 0, 0);
                 v.repaint();
             }
         });
         vsliderHorizontal.addChangeListener(new ChangeListener(){
             public void stateChanged(ChangeEvent e){
                 int step = vsliderHorizontal.getValue();
-                c.rotate(0, step, 0);
+                c.rotate(0, step/10, 0);
                 v.repaint();
             }
         });

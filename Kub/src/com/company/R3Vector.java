@@ -41,42 +41,39 @@ public class R3Vector {
         this.y = this.y+dy;
         this.z = this.z+dz;
     }
-    public void rotateZ(double deg){
-        double x;
-        double y;
-        x = this.x*Math.cos(Math.toRadians(deg)) + this.y*Math.sin(Math.toRadians(deg));
-        y = this.y*Math.cos(Math.toRadians(deg)) - this.x*Math.sin(Math.toRadians(deg));
-        this.x = x;
-        this.y = y;
+    public void rotateX(double deg)
+    {
+        double y0; double z0;
+        y0 = y * Math.cos(Math.toRadians(deg)) - z * Math.sin(Math.toRadians(deg));
+        z0 = z * Math.cos(Math.toRadians(deg)) + y * Math.sin(Math.toRadians(deg));
+        y = y0; z = z0;
     }
-    public void rotateY(double deg){
-        double x;
-        double z;
-        x = this.x*Math.cos(Math.toRadians(deg)) + this.z*Math.sin(Math.toRadians(deg));
-        z = this.z*Math.cos(Math.toRadians(deg)) - this.x*Math.sin(Math.toRadians(deg));
-        this.x = x;
-        this.z = z;
+    public void rotateY(double deg)
+    {
+        double x0; double z0;
+        x0 = x * Math.cos(Math.toRadians(deg)) + z * Math.sin(Math.toRadians(deg));
+        z0 = z * Math.cos(Math.toRadians(deg)) - x * Math.sin(Math.toRadians(deg));
+        x = x0; z = z0;
     }
-    public void rotateX(double deg){
-        double y;
-        double z;
-        y = this.y*Math.cos(Math.toRadians(deg)) + this.z*Math.sin(Math.toRadians(deg));
-        z = this.z*Math.cos(Math.toRadians(deg)) - this.y*Math.sin(Math.toRadians(deg));
-        this.y = y;
-        this.z = z;
+    public void rotateZ(double deg)
+    {
+        double x0; double y0;
+        x0 = x * Math.cos(Math.toRadians(deg)) - y * Math.sin(Math.toRadians(deg));
+        y0 = y * Math.cos(Math.toRadians(deg)) + x * Math.sin(Math.toRadians(deg));
+        x = x0; y = y0;
     }
     public void rotate(double ux, double uy, double uz){
         rotateX(ux);
         rotateY(uy);
         rotateZ(uz);
     }
-    public double GetX(){
+    public double getX(){
         return this.x;
     }
-    public double GetY(){
+    public double getY(){
         return this.y;
     }
-    public double GetZ(){
+    public double getZ(){
         return this.z;
     }
     public static R3Vector diagonals(R3Vector vector1, R3Vector vector2){

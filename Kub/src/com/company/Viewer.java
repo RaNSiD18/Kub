@@ -18,7 +18,7 @@ public class Viewer extends JFrame{
             @Override
             public void paintComponent(Graphics gr){
                 Graphics2D g = (Graphics2D)gr;
-                BasicStroke pen1 = new BasicStroke(3); //толщина линии 3
+                BasicStroke pen1 = new BasicStroke(1); //толщина линии 3
                 g.setStroke(pen1);
                 g.translate(Viewer.width/2, Viewer.height/2);
                 g.setColor(Color.white);
@@ -27,7 +27,7 @@ public class Viewer extends JFrame{
                 g.drawLine(-width/2,0, width/2, 0);
                 g.drawLine(0,-height/2, 0, height/2);
                 //cube.draw(g);
-                cube.drawPers(g, 500);
+                cube.drawPersp(g, 500);
             }
         };
         this.setSize(width, height);

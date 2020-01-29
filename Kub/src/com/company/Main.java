@@ -17,24 +17,24 @@ public class Main {
         //y2 = Ko.nextInt();
         //z2 = Ko.nextInt();
 
-       R3Vector a = new R3Vector(10+x1,20+y1,30+z1);
-       R3Vector b = new R3Vector(30+x2,20+y2,10+z2);
-       a.out();
-       b.out();
+       //R3Vector a = new R3Vector(10+x1,20+y1,30+z1);
+       //R3Vector b = new R3Vector(30+x2,20+y2,10+z2);
+       //a.out();
+       //b.out();
        //a.sum(a);
 
-       R3Vector.sum(R3Vector.sum(a,a), R3Vector.sum(a,a)).out();
-       R3Vector.skal(a, b);
+       //R3Vector.sum(R3Vector.sum(a,a), R3Vector.sum(a,a)).out();
+       //R3Vector.skal(a, b);
 
-       a.rotateZ(90);
-        a.out();
+      // a.rotateZ(90);
+        //a.out();
 
-        Facet f = new Facet(new R3Vector(0,0,0), new R3Vector(1,0,0), new R3Vector(1,1,0), new R3Vector(0,1,0));
-        f.print();
+        //Facet f = new Facet(new R3Vector(0,0,0), new R3Vector(1,0,0), new R3Vector(1,1,0), new R3Vector(0,1,0));
+        //f.print();
 
 
         Cube cube = new Cube();
-        cube.scale(150);
+        cube.scale(100);
         cube.rotate(125,125,125);
         Viewer v = new Viewer(cube);
         Controller с = new Controller(cube,v);
